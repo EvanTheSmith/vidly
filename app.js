@@ -10,3 +10,21 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server online at port ${port}`));
 
 // Server Request Handling
+
+// GET all genres
+app.get('/api/genres', (req, res) => { 
+    res.send(genres);
+});
+
+// GET one genre
+app.get('/api/genres/:id', (req, res) => { 
+    let genre_id = parseInt(req.params.id);
+    let genre = genres.find(g => g.id === genre_id);
+    if (!genre) return res.status(404).send(`Could not find ${genre_id}`);
+    res.send(genre);
+});
+
+// POST one genre
+app.post('/api/genres', (req, res) => {
+
+});
