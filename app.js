@@ -20,8 +20,7 @@ app.get('/api/genres', (req, res) => {
 app.get('/api/genres/:id', (req, res) => { 
     let genre_id = parseInt(req.params.id);
     let genre = genres.find(g => g.id === genre_id);
-    if (!genre) return res.status(404).send(`Could not find ${genre_id}`);
-    res.send(genre);
+    (genre) ? res.send(genre) : res.status(404).send(`Could not find ${genre_id}`);
 });
 
 // POST one genre
