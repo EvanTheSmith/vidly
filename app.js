@@ -35,6 +35,15 @@ app.post('/api/genres', (req, res) => {
     res.send(genre);
 });
 
+// PUT (EDIT) one genre
+app.put('/api/genres/:id', (req, res) => {
+    let genre_id = parseInt(req.params.id);
+    let genre = genres.find(g => g.id === genre_id);
+    if (!genre) return res.status(404).send(`Could not find ${genre_id}`); 
 
+    const {error} = validateGenre(req.body); if (error) return res.status(400).send(error.details[0].message);
 
+    genre.genre = req.body.genre;
+    res.send(genre);
+});
 
