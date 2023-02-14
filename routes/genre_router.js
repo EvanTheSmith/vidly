@@ -6,11 +6,7 @@ mongoose.connect('mongodb://localhost/vidly', { useNewUrlParser: true, useUnifie
 const router = express.Router();
 // const genres = require('../genres.js'); // commented out because using Mongoose now
 
-const genreSchema = new mongoose.Schema(
-    { genre: { type: String, required: true } }
-);
-
-const Genre = mongoose.model('Genre', genreSchema);
+const Genre = mongoose.model('Genre', new mongoose.Schema({ genre: { type: String, required: true } }));
 
 function validateGenre(genre) {
     const schema = { genre: Joi.string().required() };
