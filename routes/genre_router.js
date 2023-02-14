@@ -27,13 +27,11 @@ router.get('/:id', async (req, res) => {
 });
 
 // POST one genre
-router.post('/', (req, res) => {
-    const {error} = validateGenre(req.body); if (error) return res.status(400).send(error.details[0].message);
-    async function postGenre() {
-        const genre = new Genre({ genre: req.body.genre });
-        try { const result = await genre.save(); res.send(result); }
-        catch(exception) { for (error in exception.errors) { res.send({ error: exception.errors[error].message }); } }
-    } postGenre();
+router.post('/', async (req, res) => {
+    const {error} = validateGenre(req.body); if (error) return res.status(400).send({ error: error.details[0].message });
+    let genre = new Genre({ genre: req.body.genre });
+    genre = await genre.save();
+    res.send(genre);
 });
 
 // PUT (EDIT) one genre
