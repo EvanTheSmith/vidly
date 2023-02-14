@@ -12,12 +12,6 @@ const genreSchema = new mongoose.Schema(
 
 const Genre = mongoose.model('Genre', genreSchema);
 
-// Mongoose server requests
-async function getGenres() { 
-    const genres = await Genre.find(); 
-    return genres;
-}
-
 function validateGenre(genre) {
     const schema = { genre: Joi.string().required() };
     return Joi.validate(genre, schema);
