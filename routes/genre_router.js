@@ -5,8 +5,7 @@ const router = express.Router();
 const genres = require('../genres.js');
 
 const genreSchema = new mongoose.Schema({
-    genre: { type: String, required: true },
-    date: { type: Date, default: Date.now }
+    genre: { type: String, required: true }
 });
 
 const Genre = mongoose.model('Genre', genreSchema);
