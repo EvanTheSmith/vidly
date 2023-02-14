@@ -23,13 +23,10 @@ router.get('/', (req, res) => {
 });
 
 // GET one genre
-router.get('/:id', (req, res) => { 
+router.get('/:id', async (req, res) => { 
     let genre_id = req.params.id;
-    async function sendGenre() {
-        const genre = await Genre.findById(genre_id);
-        (genre) ? res.send(genre) : res.status(404).send({ 'could not find': genre_id }); 
-        // send genre if found, 404 and error message if not
-    } sendGenre();
+    const genre = await Genre.findById(genre_id);
+    (genre) ? res.send(genre) : res.status(404).send({ 'could not find': genre_id }); 
 });
 
 // POST one genre
