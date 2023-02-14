@@ -63,13 +63,18 @@ router.put('/:id', (req, res) => {
 
 // DELETE one genre
 router.delete('/:id', (req, res) => {
-    let genre_id = parseInt(req.params.id);
-    let genre = genres.find(g => g.id === genre_id);
-    if (!genre) return res.status(404).send(`Could not find ${genre_id}`); 
+    let genre_id = req.params.id;
 
-    const index = genres.indexOf(genre);
-    genres.splice(index, 1);
-    res.send(genre);
+    async function deleteGenre() {
+        const genre = await Genre.findById(genre_id);
+        if (!genre) return res.status(404).send({ 'could not find': genre_id });
+        const result = await Genre.deleteOne({ _id: genre_id });
+        res.send(result);
+    } deleteGenre()
+
+    // let genre = genres.find(g => g.id === genre_id);
+    // const index = genres.indexOf(genre);
+    // genres.splice(index, 1);
 });
 
 module.exports = router;
