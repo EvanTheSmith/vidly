@@ -26,15 +26,20 @@ function validateGenre(genre) {
 router.get('/', (req, res) => { 
     // (async () => res.send(await Genre.find()))()
     async function sendGenres() { 
-        const genres = Genre.find();
+        const genres = await Genre.find();
         res.send(genres); 
-    };
+    }; 
     sendGenres();
 });
 
 // GET one genre
 router.get('/:id', (req, res) => { 
     let genre_id = parseInt(req.params.id);
+
+    async function sendGenre() {
+        const genre = await Genre.findById(genre_id);
+    }
+
     let genre = genres.find(g => g.id === genre_id);
     (genre) ? res.send(genre) : res.status(404).send(`Could not find ${genre_id}`); 
     // send genre if found, 404 and error message if not
