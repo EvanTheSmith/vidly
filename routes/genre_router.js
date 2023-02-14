@@ -1,4 +1,6 @@
 const express = require('express');
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/vidly', { useNewUrlParser: true, useUnifiedTopology: true })
 const router = express.Router();
 const genres = require('../genres.js');
 
