@@ -9,7 +9,7 @@ const genreSchema = new mongoose.Schema(
 const Genre = mongoose.model('Genre', genreSchema);
 
 async function createGenre() {
-    const genre = new Genre({ genre: 'horror', });
+    const genre = new Genre({ genre: 'childrens', });
     try { const result = await genre.save(); console.log(result); }
     catch(exception) { for (error in exception.errors) { console.log(exception.errors[error].message); } }
 }
