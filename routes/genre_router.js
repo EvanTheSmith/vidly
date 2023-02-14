@@ -34,23 +34,24 @@ router.get('/', (req, res) => {
 
 // GET one genre
 router.get('/:id', (req, res) => { 
-    let genre_id = parseInt(req.params.id);
-
+    let genre_id = req.params.id;
     async function sendGenre() {
         const genre = await Genre.findById(genre_id);
-    }
-
-    let genre = genres.find(g => g.id === genre_id);
-    (genre) ? res.send(genre) : res.status(404).send(`Could not find ${genre_id}`); 
-    // send genre if found, 404 and error message if not
+        (genre) ? res.send(genre) : res.status(404).send({ 'could not find': genre_id }); 
+        // send genre if found, 404 and error message if not
+    };
+    sendGenre();
 });
 
 // POST one genre
 router.post('/', (req, res) => {
     const {error} = validateGenre(req.body); if (error) return res.status(400).send(error.details[0].message);
-    let genre = { id: genres.length, genre: req.body.genre };
-    genres.push(genre);
-    res.send(genre);
+    async function postGenre() {
+        const genre = new Genre({ genre: req.body.genre });
+        try { const result = await genre.save(); res.send(result); }
+        catch(exception) { for (error in exception.errors) { console.log(exception.errors[error].message); } }
+    };
+    postGenre();
 });
 
 // PUT (EDIT) one genre
