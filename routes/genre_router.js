@@ -14,12 +14,9 @@ function validateGenre(genre) {
 }
 
 // GET all genres
-router.get('/', (req, res) => { 
-    // (async () => res.send(await Genre.find()))()
-    async function sendGenres() { 
-        const genres = await Genre.find();
-        res.send(genres); 
-    } sendGenres();
+router.get('/', async (req, res) => { 
+    const genres = await Genre.find();
+    res.send(genres); 
 });
 
 // GET one genre
