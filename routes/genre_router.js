@@ -22,7 +22,8 @@ router.get('/', async (req, res) => {
 // GET one genre
 router.get('/:id', async (req, res) => { 
     const genre = await Genre.findById(req.params.id);
-    (genre) ? res.send(genre) : res.status(404).send({ 'could not find': genre_id }); 
+    if (!genre) res.status(404).send({ 'could not find': genre_id }); 
+    res.send(genre);
 });
 
 // POST one genre
