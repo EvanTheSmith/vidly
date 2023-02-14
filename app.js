@@ -1,7 +1,6 @@
 // Required 
 const express = require('express');
 const app = express();
-const Joi = require('joi'); // validations
 const genre_router = require('./routes/genre_router.js');
 
 // Server Setup
