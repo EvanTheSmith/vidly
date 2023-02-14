@@ -24,7 +24,9 @@ function validateGenre(genre) {
 
 // GET all genres
 router.get('/', (req, res) => { 
-    (async () => res.send(await Genre.find()))()
+    // (async () => res.send(await Genre.find()))()
+    async function sendGenres() { res.send(await Genre.find()) }
+    sendGenres();
 });
 
 // GET one genre
