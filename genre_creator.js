@@ -5,6 +5,8 @@ const genreSchema = new mongoose.Schema(
     { genre: { type: String, required: true } }
 );
 
+const Genre = mongoose.model('Genre', genreSchema);
+
 async function createGenre() {
     const genre = new Genre({ type: 'horror', });
     try { const result = await genre.save(); console.log(result); }
