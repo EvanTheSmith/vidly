@@ -15,7 +15,7 @@ function validateGenre(genre) {
 
 // GET all genres
 router.get('/', async (req, res) => { 
-    const genres = await Genre.find();
+    const genres = await Genre.find().sort('genre');
     res.send(genres); 
 });
 
