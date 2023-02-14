@@ -1,4 +1,5 @@
 const express = require('express');
+const Joi = require('joi');
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true);
 mongoose.connect('mongodb://localhost/vidly', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -28,8 +29,7 @@ router.get('/', (req, res) => {
     async function sendGenres() { 
         const genres = await Genre.find();
         res.send(genres); 
-    }; 
-    sendGenres();
+    }; sendGenres();
 });
 
 // GET one genre
@@ -39,8 +39,7 @@ router.get('/:id', (req, res) => {
         const genre = await Genre.findById(genre_id);
         (genre) ? res.send(genre) : res.status(404).send({ 'could not find': genre_id }); 
         // send genre if found, 404 and error message if not
-    };
-    sendGenre();
+    }; sendGenre();
 });
 
 // POST one genre
@@ -49,9 +48,8 @@ router.post('/', (req, res) => {
     async function postGenre() {
         const genre = new Genre({ genre: req.body.genre });
         try { const result = await genre.save(); res.send(result); }
-        catch(exception) { for (error in exception.errors) { console.log(exception.errors[error].message); } }
-    };
-    postGenre();
+        catch(exception) { for (error in exception.errors) { res.send(exception.errors[error].message); } }
+    }; postGenre();
 });
 
 // PUT (EDIT) one genre
