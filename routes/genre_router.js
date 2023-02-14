@@ -4,11 +4,15 @@ mongoose.connect('mongodb://localhost/vidly', { useNewUrlParser: true, useUnifie
 const router = express.Router();
 // const genres = require('../genres.js'); // commented out because using Mongoose now
 
-const genreSchema = new mongoose.Schema({
-    genre: { type: String, required: true }
-});
+const genreSchema = new mongoose.Schema(
+    { genre: { type: String, required: true } }
+);
 
 const Genre = mongoose.model('Genre', genreSchema);
+
+async function getGenres() {
+    return await Genre.find();
+}
 
 function validateGenre(genre) {
     const schema = { genre: Joi.string().required() };
@@ -17,6 +21,7 @@ function validateGenre(genre) {
 
 // GET all genres
 router.get('/', (req, res) => {
+    const genres = getGenres();
     res.send(genres)
 });
 
