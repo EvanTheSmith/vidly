@@ -71,10 +71,6 @@ router.delete('/:id', (req, res) => {
         const result = await Genre.deleteOne({ _id: genre_id });
         res.send(result);
     } deleteGenre()
-
-    // let genre = genres.find(g => g.id === genre_id);
-    // const index = genres.indexOf(genre);
-    // genres.splice(index, 1);
 });
 
 module.exports = router;
