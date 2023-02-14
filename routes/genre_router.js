@@ -12,7 +12,10 @@ const genreSchema = new mongoose.Schema(
 const Genre = mongoose.model('Genre', genreSchema);
 
 // Mongoose server requests
-async function getGenres() { return await Genre.find(); }
+async function getGenres() { 
+    const genres = await Genre.find(); 
+    return genres;
+}
 
 function validateGenre(genre) {
     const schema = { genre: Joi.string().required() };
@@ -20,9 +23,8 @@ function validateGenre(genre) {
 }
 
 // GET all genres
-router.get('/', (req, res) => {
-    const genres = getGenres();
-    res.send(genres)
+router.get('/', (req, res) => { 
+    (async () => res.send(await Genre.find()))()
 });
 
 // GET one genre
