@@ -1,16 +1,18 @@
 const express = require('express');
 const Joi = require('joi');
-const mongoose = require('mongoose');
-mongoose.set('strictQuery', true);
-mongoose.connect('mongodb://localhost/vidly', { useNewUrlParser: true, useUnifiedTopology: true })
 const router = express.Router();
 
-const Genre = mongoose.model('Genre', new mongoose.Schema({ genre: { type: String, required: true } }));
+const mongoose = require('mongoose');
+mongoose.set('strictQuery', true); // bug fix
+mongoose.connect('mongodb://localhost/vidly', { useNewUrlParser: true, useUnifiedTopology: true })
+const Genre = mongoose.model('Genre', new mongoose.Schema({ genre: { type: String, required: true } })); // Mongoose Class
 
 function validateGenre(genre) {
     const schema = { genre: Joi.string().required() };
     return Joi.validate(genre, schema);
 }
+
+// ROUTES (Express + Mongoose)
 
 // GET all genres
 router.get('/', async (req, res) => { 
