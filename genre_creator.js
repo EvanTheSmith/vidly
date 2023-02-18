@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 mongoose.set('strictQuery', true);
 mongoose.connect('mongodb://localhost/vidly', { useNewUrlParser: true, useUnifiedTopology: true })
 
-const genreSchema = new mongoose.Schema(
-    { genre: { type: String, required: true } }
-);
+const genreSchema = new mongoose.Schema({ 
+        genre: { type: String, required: true }
+});
 
 const Genre = mongoose.model('Genre', genreSchema);
 
