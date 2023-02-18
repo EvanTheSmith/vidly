@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true);
-mongoose.connect('mongodb://localhost/vidly', { useNewUrlParser: true, useUnifiedTopology: true })
+const thisFixesTheBugs = { useNewUrlParser: true, useUnifiedTopology: true };
+mongoose.connect('mongodb://localhost/vidly', thisFixesTheBugs)
 
 const genreSchema = new mongoose.Schema({ 
         genre: { type: String, required: true }
