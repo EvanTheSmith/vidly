@@ -4,7 +4,7 @@ const thisFixesTheBugs = { useNewUrlParser: true, useUnifiedTopology: true };
 mongoose.connect('mongodb://localhost/vidly', thisFixesTheBugs)
 
 const genreSchema = new mongoose.Schema({ 
-        genre: { type: String, required: true }
+    genre: { type: String, required: true }
 });
 
 const Genre = mongoose.model('Genre', genreSchema);
