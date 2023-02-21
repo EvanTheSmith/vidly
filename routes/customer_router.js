@@ -39,11 +39,11 @@ router.post('/', async (req, res) => {
 
 // PUT (EDIT) one genre
 router.put('/:id', async (req, res) => {
-    const {error} = validateGenre(req.body); 
+    const {error} = validateCustomer(req.body); 
     if (error) return res.status(400).send({ 'error': error.details[0].message });
-    const genre = await Genre.findByIdAndUpdate(req.params.id, { genre: req.body.genre });
-    if (!genre) return res.status(404).send({ 'could not find': req.params.id });  
-    res.send(genre);
+    const customer = await Customer.findByIdAndUpdate(req.params.id, { name: req.body.name, phone: req.body.phone, isGold: req.body.isGold });
+    if (!customer) return res.status(404).send({ 'could not find': req.params.id });  
+    res.send(customer);
 });
 
 // DELETE one genre
