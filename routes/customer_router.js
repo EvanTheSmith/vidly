@@ -22,11 +22,11 @@ router.get('/', async (req, res) => {
     res.send(customers); 
 });
 
-// GET one genre
+// GET one customer
 router.get('/:id', async (req, res) => { 
-    const genre = await Genre.findById(req.params.id);
-    if (!genre) res.status(404).send({ 'could not find': req.params.id }); 
-    res.send(genre);
+    const customer = await Customer.findById(req.params.id);
+    if (!customer) res.status(404).send({ 'could not find': req.params.id }); 
+    res.send(customer);
 });
 
 // POST one genre
