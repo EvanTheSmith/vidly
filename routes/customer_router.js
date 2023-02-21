@@ -48,9 +48,9 @@ router.put('/:id', async (req, res) => {
 
 // DELETE one genre
 router.delete('/:id', async (req, res) => {
-    const genre = await Genre.findByIdAndRemove(req.params.id);
-    if (!genre) return res.status(404).send({ 'could not find': req.params.id });
-    res.send(genre);
+    const customer = await Customer.findByIdAndRemove(req.params.id);
+    if (!customer) return res.status(404).send({ 'could not find': req.params.id });
+    res.send(customer);
 });
 
 module.exports = router;
