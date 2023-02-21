@@ -29,12 +29,12 @@ router.get('/:id', async (req, res) => {
     res.send(customer);
 });
 
-// POST one genre
+// POST one customer
 router.post('/', async (req, res) => {
-    const {error} = validateGenre(req.body); if (error) return res.status(400).send({ 'error': error.details[0].message });
-    let genre = new Genre({ genre: req.body.genre });
-    genre = await genre.save(); // re-use genre variable to hold the save result
-    res.send(genre); // send resulting genre to the client
+    const {error} = validateCustomer(req.body); if (error) return res.status(400).send({ 'error': error.details[0].message });
+    let customer = new Customer({ name: req.body.name, phone: req.body.phone, isGold: req.body.isGold });
+    customer = await customer.save(); // re-use customer variable to hold the save result
+    res.send(customer); // send resulting customer to the client
 });
 
 // PUT (EDIT) one genre
