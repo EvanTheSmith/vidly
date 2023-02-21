@@ -5,7 +5,9 @@ const router = express.Router();
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true); // bug fix
 mongoose.connect('mongodb://localhost/vidly', { useNewUrlParser: true, useUnifiedTopology: true })
-const Genre = mongoose.model('Genre', new mongoose.Schema({ genre: { type: String, required: true } })); // Mongoose Class
+const Customer = mongoose.model('Customer', new mongoose.Schema(
+    { name: { type: String, required: true }, phone: String, isGold: Boolean }
+)); // Mongoose Class
 
 function validateGenre(genre) {
     const schema = { genre: Joi.string().required() };
