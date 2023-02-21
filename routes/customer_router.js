@@ -9,17 +9,17 @@ const Customer = mongoose.model('Customer', new mongoose.Schema(
     { name: { type: String, required: true }, phone: String, isGold: Boolean }
 )); // Mongoose Class
 
-function validateGenre(genre) {
-    const schema = { genre: Joi.string().required() };
-    return Joi.validate(genre, schema);
+function validateCustomer(customer) {
+    const schema = { name: Joi.string().required() };
+    return Joi.validate(customer, schema);
 }
 
 // ROUTES (Express + Mongoose)
 
-// GET all genres
+// GET all customers
 router.get('/', async (req, res) => { 
-    const genres = await Genre.find().sort('genre');
-    res.send(genres); 
+    const customers = await Customer.find().sort('name');
+    res.send(customers); 
 });
 
 // GET one genre
