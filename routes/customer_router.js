@@ -10,7 +10,7 @@ const Customer = mongoose.model('Customer', new mongoose.Schema(
 )); // Mongoose Class
 
 function validateCustomer(customer) {
-    const schema = { name: Joi.string().required() };
+    const schema = { name: Joi.string().required(), phone: Joi.string(), isGold: Joi.boolean() };
     return Joi.validate(customer, schema);
 }
 
