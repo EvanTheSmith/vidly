@@ -6,7 +6,9 @@ const mongoose = require('mongoose');
 mongoose.set('strictQuery', true); // bug fix
 mongoose.connect('mongodb://localhost/vidly', { useNewUrlParser: true, useUnifiedTopology: true })
 const Customer = mongoose.model('Customer', new mongoose.Schema(
-    { name: { type: String, required: true }, phone: String, isGold: { type: Boolean, default: false } }
+    { name: { type: String, required: true }, 
+    phone: { type: String, required: true }, 
+    isGold: { type: Boolean, required: true, default: false } }
 )); // Mongoose Class
 
 function validateCustomer(customer) {
