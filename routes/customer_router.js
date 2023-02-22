@@ -45,7 +45,9 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
     const {error} = validateCustomer(req.body); 
     if (error) return res.status(400).send({ 'error': error.details[0].message });
-    const customer = await Customer.findByIdAndUpdate(req.params.id, { name: req.body.name, phone: req.body.phone, isGold: req.body.isGold });
+    const { name, phone, isGold } = req.body; // destructured req.body
+    const customer = await Customer.findByIdAndUpdate(req.params.id, { name: name, phone: phone, isGold: isGold });
+    // const customer = await Customer.findByIdAndUpdate(req.params.id, { name: req.body.name, phone: req.body.phone, isGold: req.body.isGold });
     if (!customer) return res.status(404).send({ 'could not find': req.params.id });  
     res.send(customer);
 });
