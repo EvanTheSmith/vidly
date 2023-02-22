@@ -36,7 +36,8 @@ router.get('/:id', async (req, res) => {
 // POST one customer
 router.post('/', async (req, res) => {
     const {error} = validateCustomer(req.body); if (error) return res.status(400).send({ 'error': error.details[0].message });
-    let customer = new Customer({ name: req.body.name, phone: req.body.phone, isGold: req.body.isGold });
+    const { name, phone, isGold } = req.body; // destructured req.body
+    let customer = new Customer({ name, phone, isGold });
     customer = await customer.save(); // re-use customer variable to hold the save result
     res.send(customer); // send resulting customer to the client
 });
@@ -47,7 +48,6 @@ router.put('/:id', async (req, res) => {
     if (error) return res.status(400).send({ 'error': error.details[0].message });
     const { name, phone, isGold } = req.body; // destructured req.body
     const customer = await Customer.findByIdAndUpdate(req.params.id, { name, phone, isGold });
-    // const customer = await Customer.findByIdAndUpdate(req.params.id, { name: req.body.name, phone: req.body.phone, isGold: req.body.isGold });
     if (!customer) return res.status(404).send({ 'could not find': req.params.id });  
     res.send(customer);
 });
