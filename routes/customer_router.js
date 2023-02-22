@@ -1,24 +1,10 @@
 const express = require('express');
-const Joi = require('joi');
+const { Customer, validate } = require('../models/customer');
 const router = express.Router();
 
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true); // bug fix
 mongoose.connect('mongodb://localhost/vidly', { useNewUrlParser: true, useUnifiedTopology: true })
-const Customer = mongoose.model('Customer', new mongoose.Schema( // Mongoose Class
-    { name: { type: String, required: true }, 
-    phone: { type: String, required: true }, 
-    isGold: { type: Boolean, default: false } }
-)); 
-
-function validateCustomer(customer) {
-    const schema = { 
-        name: Joi.string().required(), 
-        phone: Joi.string().required(), 
-        isGold: Joi.boolean()
-    };
-    return Joi.validate(customer, schema);
-}
 
 // ROUTES (Express + Mongoose)
 
@@ -37,7 +23,7 @@ router.get('/:id', async (req, res) => {
 
 // POST one customer
 router.post('/', async (req, res) => {
-    const {error} = validateCustomer(req.body); if (error) return res.status(400).send({ 'error': error.details[0].message });
+    const {error} = validate(req.body); if (error) return res.status(400).send({ 'error': error.details[0].message });
     const { name, phone, isGold } = req.body; // destructured req.body
     let customer = new Customer({ name, phone, isGold });
     customer = await customer.save(); // re-use customer variable to hold the save result
@@ -46,7 +32,7 @@ router.post('/', async (req, res) => {
 
 // PUT (EDIT) one genre
 router.put('/:id', async (req, res) => {
-    const {error} = validateCustomer(req.body); 
+    const {error} = validate(req.body); 
     if (error) return res.status(400).send({ 'error': error.details[0].message });
     const { name, phone, isGold } = req.body; // destructured req.body
     const customer = await Customer.findByIdAndUpdate(req.params.id, { name, phone, isGold });
