@@ -8,14 +8,14 @@ mongoose.connect('mongodb://localhost/vidly', { useNewUrlParser: true, useUnifie
 const Customer = mongoose.model('Customer', new mongoose.Schema(
     { name: { type: String, required: true }, 
     phone: { type: String, required: true }, 
-    isGold: { type: Boolean, required: true, default: false } }
+    isGold: { type: Boolean, default: false } }
 )); // Mongoose Class
 
 function validateCustomer(customer) {
     const schema = { 
         name: Joi.string().required(), 
         phone: Joi.string().required(), 
-        isGold: Joi.boolean().required() 
+        isGold: Joi.boolean()
     };
     return Joi.validate(customer, schema);
 }
