@@ -5,11 +5,11 @@ const router = express.Router();
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true); // bug fix
 mongoose.connect('mongodb://localhost/vidly', { useNewUrlParser: true, useUnifiedTopology: true })
-const Customer = mongoose.model('Customer', new mongoose.Schema(
+const Customer = mongoose.model('Customer', new mongoose.Schema( // Mongoose Class
     { name: { type: String, required: true }, 
     phone: { type: String, required: true }, 
     isGold: { type: Boolean, default: false } }
-)); // Mongoose Class
+)); 
 
 function validateCustomer(customer) {
     const schema = { 
