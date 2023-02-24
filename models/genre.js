@@ -1,3 +1,6 @@
+// Genre Model
+// to be imported by App.js
+
 const mongoose = require('mongoose');
 const Joi = require('joi');
 
