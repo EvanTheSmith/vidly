@@ -10,6 +10,8 @@ const Customer = mongoose.model('Customer', new mongoose.Schema( // Mongoose Cla
     isGold: { type: Boolean, default: false } }
 )); 
 
+// validate function : to be exported separately
+
 function validateCustomer(customer) {
     const schema = { 
         name: Joi.string().required(), 
